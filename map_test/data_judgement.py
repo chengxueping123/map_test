@@ -1,15 +1,15 @@
 import os
-import re
 
-def input_detection_results(image_name,bbox,confidence,class_name):#生成input中的detection-results文件
-    path=os.getcwd()
-    with open(os.path.join(path,'input','detection-results',image_name.replace('jpg','txt')) ,'w') as f:
-        f.write(class_name+' ')
-        f.write(str(confidence)+' ')
-        f.write(str(bbox[0])+' ')
-        f.write(str(bbox[1])+' ')
-        f.write(str(bbox[2])+' ')
-        f.write(str(bbox[3]))
+
+#def input_detection_results(image_name,bbox,confidence,class_name):#生成input中的detection-results文件
+#    path=os.getcwd()
+#    with open(os.path.join(path,'input','detection-results',image_name.replace('jpg','txt')) ,'w') as f:
+#        f.write(class_name+' ')
+#        f.write(str(confidence)+' ')
+#        f.write(str(bbox[0])+' ')
+#        f.write(str(bbox[1])+' ')
+#        f.write(str(bbox[2])+' ')
+#        f.write(str(bbox[3]))
 
 #input_detection_results('2007_000027.jpg',[12,56,65,23],0.45,'cat')
 def input_ground_truth(txt_file,txt_name):#对标签数据进行处理
@@ -34,3 +34,16 @@ def input_ground_truth(txt_file,txt_name):#对标签数据进行处理
 #input_ground_truth('/home/chengxueping/Desktop/map_test/23ef1ac8-2c4b1a6d.txt','23ef1ac8-2c4b1a6d.txt')     
 
 
+def turn_file(file_path):
+    for a,b,c in os.walk(file_path):
+#        print(a)
+        for txt in c:
+            name=os.path.basename(txt)
+            path=a+'/'+txt
+#            print(path)
+            input_ground_truth(path,name)
+            
+            
+
+turn_file('/home/chengxueping/Desktop/labels')
+        
